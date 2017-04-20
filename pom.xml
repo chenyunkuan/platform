@@ -567,6 +567,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>${artifactId}</finalName>
 	</build>
 
 	<profiles>
