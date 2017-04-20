@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ykchen.platform.modules.bus.dao.CustomerDao">
+    
+	<sql id="customerColumns">
+		a.id AS "id",
+		a.area_id AS "area.id",
+		a.company_name AS "companyName",
+		a.contact_person AS "contactPerson",
+		a.telephone AS "telephone",
+		a.cellphone AS "cellphone",
+		a.express AS "express",
+		a.remarks AS "remarks",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		a2.name AS "area.name"
+	</sql>
+	
+	<sql id="customerJoins">
+		LEFT JOIN sys_area a2 ON a2.id = a.area_id
+	</sql>
+    
+	<select id="get" resultType="Customer">
+		SELECT 
+			<include refid="customerColumns"/>
+		FROM bus_customer a
+		<include refid="customerJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="Customer">
+		SELECT 
+			<include refid="customerColumns"/>
+		FROM bus_customer a
+		<include refid="customerJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="area != null and area.id != null and area.id != ''">
+				AND a.area_id = #{area.id}
+			</if>
+			<if test="companyName != null and companyName != ''">
+				AND a.company_name = #{companyName}
+			</if>
+			<if test="contactPerson != null and contactPerson != ''">
+				AND a.contact_person = #{contactPerson}
+			</if>
+			<if test="cellphone != null and cellphone != ''">
+				AND a.cellphone = #{cellphone}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="Customer">
+		SELECT 
+			<include refid="customerColumns"/>
+		FROM bus_customer a
+		<include refid="customerJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bus_customer(
+			area_id,
+			company_name,
+			contact_person,
+			telephone,
+			cellphone,
+			express,
+			remarks,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag
+		) VALUES (
+			#{area.id},
+			#{companyName},
+			#{contactPerson},
+			#{telephone},
+			#{cellphone},
+			#{express},
+			#{remarks},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bus_customer SET 	
+			area_id = #{area.id},
+			company_name = #{companyName},
+			contact_person = #{contactPerson},
+			telephone = #{telephone},
+			cellphone = #{cellphone},
+			express = #{express},
+			remarks = #{remarks},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE bus_customer SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>
