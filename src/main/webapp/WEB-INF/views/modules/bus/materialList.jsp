@@ -43,8 +43,8 @@
 	<table id="contentTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>原料类型</th>
 				<th>原料名称</th>
+				<th>原料类型</th>
 				<th>原料颜色</th>
 				<th>规格</th>
 				<th>单位</th>
@@ -60,10 +60,10 @@
 		<c:forEach items="${page.list}" var="material">
 			<tr>
 				<td><a href="${ctx}/bus/material/form?id=${material.id}">
-					${material.type.name}
+					${material.name}
 				</a></td>
 				<td>
-					${material.name}
+					${material.type.name}
 				</td>
 				<td>
 					${fns:getDictLabel(material.color, 'material_color', '')}

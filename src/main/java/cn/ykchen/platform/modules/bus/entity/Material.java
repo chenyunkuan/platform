@@ -23,8 +23,8 @@ public class Material extends DataEntity<Material> {
 	private String color;		// 原料颜色
 	private String specification;		// 规格
 	private String unit;		// 单位
-	private String quantity;		// 库存数量
-	private String price;		// 单价
+	private Integer quantity;		// 库存数量
+	private Double price;		// 单价
 	private String attribute;		// 原料属性
 	
 	public Material() {
@@ -81,19 +81,19 @@ public class Material extends DataEntity<Material> {
 	}
 	
 	@Length(min=1, max=11, message="库存数量长度必须介于 1 和 11 之间")
-	public String getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(String quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 	
-	public String getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	

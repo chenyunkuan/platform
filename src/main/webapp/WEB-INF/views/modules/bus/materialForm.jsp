@@ -37,19 +37,19 @@
 	</ul><br/>
 	<form:form id="inputForm" modelAttribute="material" action="${ctx}/bus/material/save" method="post" class="form-horizontal">
 		<form:hidden path="id"/>
-		<sys:message content="${message}"/>		
+		<sys:message content="${message}"/>
+		<div class="control-group">
+			<label class="control-label">原料名称：</label>
+			<div class="controls">
+				<form:input path="name" htmlEscape="false" maxlength="32" class="input-xlarge required"/>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
+		</div>
 		<div class="control-group">
 			<label class="control-label">原料类型：</label>
 			<div class="controls">
 				<sys:treeselect id="type" name="type.id" value="${material.type.id}" labelName="area.name" labelValue="${material.type.name}"
 								title="原料类型" url="/sys/mdict/treeData" cssClass="required"/>
-				<span class="help-inline"><font color="red">*</font> </span>
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label">原料名称：</label>
-			<div class="controls">
-				<form:input path="name" htmlEscape="false" maxlength="32" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
@@ -87,7 +87,7 @@
 		<div class="control-group">
 			<label class="control-label">单价：</label>
 			<div class="controls">
-				<form:input path="price" htmlEscape="false" class="input-xlarge required"/>
+				<form:input path="price" htmlEscape="false" class="input-xlarge required number"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
 		</div>
