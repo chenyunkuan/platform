@@ -62,7 +62,6 @@ public class Material extends DataEntity<Material> {
 		this.color = color;
 	}
 	
-	@Length(min=0, max=64, message="规格长度必须介于 0 和 64 之间")
 	public String getSpecification() {
 		return specification;
 	}
@@ -80,7 +79,6 @@ public class Material extends DataEntity<Material> {
 		this.unit = unit;
 	}
 	
-	@Length(min=1, max=11, message="库存数量长度必须介于 1 和 11 之间")
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -97,7 +95,6 @@ public class Material extends DataEntity<Material> {
 		this.price = price;
 	}
 	
-	@Length(min=0, max=64, message="原料属性长度必须介于 0 和 64 之间")
 	public String getAttribute() {
 		return attribute;
 	}

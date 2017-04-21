@@ -72,7 +72,7 @@
 					${material.specification}
 				</td>
 				<td>
-					${material.unit}
+					${fns:getDictLabel(material.unit, 'unit', '')}
 				</td>
 				<td>
 					${material.quantity}

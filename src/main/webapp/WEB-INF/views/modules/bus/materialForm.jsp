@@ -94,7 +94,7 @@
 		<div class="control-group">
 			<label class="control-label">规格：</label>
 			<div class="controls">
-				<form:textarea path="specification" htmlEscape="false" rows="4" maxlength="64" class="input-xxlarge "/>
+				<form:input path="specification" htmlEscape="false" maxlength="64" class="input-xlarge "/>
 			</div>
 		</div>
 		<div class="control-group">
