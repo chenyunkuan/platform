@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ykchen.platform.modules.bus.dao.PurchaseOrderDao">
+    
+	<sql id="purchaseOrderColumns">
+		a.id AS "id",
+		a.total_quantity AS "totalQuantity",
+		a.total_amount AS "totalAmount",
+		a.apply_by AS "applyBy",
+		a.apply_date AS "applyDate",
+		a.audit_by AS "auditBy",
+		a.audit_date AS "auditDate",
+		a.pay_total_amount AS "payTotalAmount",
+		a.pay_date AS "payDate",
+		a.status AS "status",
+		a.remarks AS "remarks",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="purchaseOrderJoins">
+	</sql>
+    
+	<select id="get" resultType="PurchaseOrder">
+		SELECT 
+			<include refid="purchaseOrderColumns"/>
+		FROM bus_purchase_order a
+		<include refid="purchaseOrderJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PurchaseOrder">
+		SELECT 
+			<include refid="purchaseOrderColumns"/>
+		FROM bus_purchase_order a
+		<include refid="purchaseOrderJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="applyBy != null and applyBy != ''">
+				AND a.apply_by = #{applyBy}
+			</if>
+			<if test="applyDate != null and applyDate != ''">
+				AND a.apply_date = #{applyDate}
+			</if>
+			<if test="auditBy != null and auditBy != ''">
+				AND a.audit_by = #{auditBy}
+			</if>
+			<if test="auditDate != null and auditDate != ''">
+				AND a.audit_date = #{auditDate}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PurchaseOrder">
+		SELECT 
+			<include refid="purchaseOrderColumns"/>
+		FROM bus_purchase_order a
+		<include refid="purchaseOrderJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bus_purchase_order(
+			total_quantity,
+			total_amount,
+			apply_by,
+			apply_date,
+			audit_by,
+			audit_date,
+			pay_total_amount,
+			pay_date,
+			status,
+			remarks,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag
+		) VALUES (
+			#{totalQuantity},
+			#{totalAmount},
+			#{applyBy},
+			#{applyDate},
+			#{auditBy},
+			#{auditDate},
+			#{payTotalAmount},
+			#{payDate},
+			#{status},
+			#{remarks},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bus_purchase_order SET 	
+			total_quantity = #{totalQuantity},
+			total_amount = #{totalAmount},
+			apply_by = #{applyBy},
+			apply_date = #{applyDate},
+			audit_by = #{auditBy},
+			audit_date = #{auditDate},
+			pay_total_amount = #{payTotalAmount},
+			pay_date = #{payDate},
+			status = #{status},
+			remarks = #{remarks},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE bus_purchase_order SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

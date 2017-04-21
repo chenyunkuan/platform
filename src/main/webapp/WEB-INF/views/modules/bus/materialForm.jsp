@@ -63,12 +63,6 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">规格：</label>
-			<div class="controls">
-				<form:textarea path="specification" htmlEscape="false" rows="4" maxlength="64" class="input-xxlarge "/>
-			</div>
-		</div>
-		<div class="control-group">
 			<label class="control-label">单位：</label>
 			<div class="controls">
 				<form:select path="unit" class="input-xlarge ">
@@ -95,6 +89,12 @@
 			<label class="control-label">原料属性：</label>
 			<div class="controls">
 				<form:input path="attribute" htmlEscape="false" maxlength="64" class="input-xlarge "/>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label">规格：</label>
+			<div class="controls">
+				<form:textarea path="specification" htmlEscape="false" rows="4" maxlength="64" class="input-xxlarge "/>
 			</div>
 		</div>
 		<div class="control-group">

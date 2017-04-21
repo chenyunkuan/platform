@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ykchen.platform.modules.bus.dao.PurchaseOrderDetailDao">
+    
+	<sql id="purchaseOrderDetailColumns">
+		a.id AS "id",
+		a.order_id AS "purchaseOrder.id",
+		a.material_id AS "materialId",
+		a.factory_id AS "factoryId",
+		a.quantity AS "quantity",
+		a.amount AS "amount",
+		a.remarks AS "remarks",
+		a.create_date AS "createDate",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="purchaseOrderDetailJoins">
+		LEFT JOIN bus_purchase_order b ON b.id = a.order_id
+	</sql>
+    
+	<select id="get" resultType="PurchaseOrderDetail">
+		SELECT 
+			<include refid="purchaseOrderDetailColumns"/>
+		FROM bus_purchase_order_detail a
+		<include refid="purchaseOrderDetailJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="PurchaseOrderDetail">
+		SELECT 
+			<include refid="purchaseOrderDetailColumns"/>
+		FROM bus_purchase_order_detail a
+		<include refid="purchaseOrderDetailJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="purchaseOrder != null ">
+				AND a.order_id = #{purchaseOrder.id}
+			</if>
+			<if test="materialId != null and materialId != ''">
+				AND a.material_id = #{materialId}
+			</if>
+			<if test="factoryId != null and factoryId != ''">
+				AND a.factory_id = #{factoryId}
+			</if>
+			<if test="quantity != null and quantity != ''">
+				AND a.quantity = #{quantity}
+			</if>
+			<if test="amount != null and amount != ''">
+				AND a.amount = #{amount}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="PurchaseOrderDetail">
+		SELECT 
+			<include refid="purchaseOrderDetailColumns"/>
+		FROM bus_purchase_order_detail a
+		<include refid="purchaseOrderDetailJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.create_date ASC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bus_purchase_order_detail(
+			order_id,
+			material_id,
+			factory_id,
+			quantity,
+			amount,
+			remarks,
+			create_date,
+			update_date,
+			del_flag
+		) VALUES (
+			#{purchaseOrder.id},
+			#{materialId},
+			#{factoryId},
+			#{quantity},
+			#{amount},
+			#{remarks},
+			#{createDate},
+			#{updateDate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bus_purchase_order_detail SET 	
+			order_id = #{purchaseOrder.id},
+			material_id = #{materialId},
+			factory_id = #{factoryId},
+			quantity = #{quantity},
+			amount = #{amount},
+			remarks = #{remarks},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE bus_purchase_order_detail SET
+			del_flag = #{DEL_FLAG_DELETE}
+		<choose>
+			<when test="id !=null and id != ''">
+				WHERE id = #{id}
+			</when>
+			<otherwise>
+				WHERE order_id = #{purchaseOrder.id}
+			</otherwise>
+		</choose>
+	</update>
+	
+</mapper>
