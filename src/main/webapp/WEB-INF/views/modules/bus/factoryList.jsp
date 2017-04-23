@@ -40,7 +40,7 @@
 				<th>联系人</th>
 				<th>银行卡号</th>
 				<th>备注</th>
-				<th>更新者</th>
+				<%--<th>更新者</th>--%>
 				<th>更新时间</th>
 				<shiro:hasPermission name="bus:factory:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -60,9 +60,9 @@
 				<td>
 					${factory.remarks}
 				</td>
-				<td>
-					${factory.updateBy.id}
-				</td>
+				<%--<td>--%>
+					<%--${factory.updateBy.id}--%>
+				<%--</td>--%>
 				<td>
 					<fmt:formatDate value="${factory.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>

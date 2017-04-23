@@ -259,5 +259,21 @@
     <function-signature>java.util.List listFactory()()</function-signature>
     <example>${fns:listFactory()}</example>
   </function>
+
+  <function>
+    <description>获取商品list</description>
+    <name>listProduct</name>
+    <function-class>cn.ykchen.platform.modules.bus.utils.SelectUtils</function-class>
+    <function-signature>java.util.List listProduct()()</function-signature>
+    <example>${fns:listProduct()}</example>
+  </function>
+
+  <function>
+    <description>获取客户list</description>
+    <name>listCustomer</name>
+    <function-class>cn.ykchen.platform.modules.bus.utils.SelectUtils</function-class>
+    <function-signature>java.util.List listCustomer()()</function-signature>
+    <example>${fns:listCustomer()}</example>
+  </function>
   
 </taglib>

@@ -52,7 +52,7 @@
 				<th>座机</th>
 				<th>手机</th>
 				<th>发货物流</th>
-				<th>更新人</th>
+				<%--<th>更新人</th>--%>
 				<th>更新时间</th>
 				<shiro:hasPermission name="bus:customer:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -78,9 +78,9 @@
 				<td>
 					${fns:getDictLabel(customer.express, 'express_company', '')}
 				</td>
-				<td>
-					${customer.updateBy.id}
-				</td>
+				<%--<td>--%>
+					<%--${customer.updateBy.id}--%>
+				<%--</td>--%>
 				<td>
 					<fmt:formatDate value="${customer.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>

@@ -51,7 +51,7 @@
 				<th>库存数量</th>
 				<th>单价</th>
 				<th>原料属性</th>
-				<th>更新人</th>
+				<%--<th>更新人</th>--%>
 				<th>更新日期</th>
 				<shiro:hasPermission name="bus:material:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -83,9 +83,9 @@
 				<td>
 					${material.attribute}
 				</td>
-				<td>
-					${material.updateBy.id}
-				</td>
+				<%--<td>--%>
+					<%--${material.updateBy.id}--%>
+				<%--</td>--%>
 				<td>
 					<fmt:formatDate value="${material.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>

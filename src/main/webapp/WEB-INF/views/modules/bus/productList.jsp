@@ -41,7 +41,7 @@
 				<th>单价</th>
 				<th>颜色</th>
 				<th>备注</th>
-				<th>更新者</th>
+				<%--<th>更新者</th>--%>
 				<th>更新时间</th>
 				<shiro:hasPermission name="bus:product:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -65,9 +65,9 @@
 				<td>
 					${product.remarks}
 				</td>
-				<td>
-					${product.updateBy.id}
-				</td>
+				<%--<td>--%>
+					<%--${product.updateBy.id}--%>
+				<%--</td>--%>
 				<td>
 					<fmt:formatDate value="${product.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>

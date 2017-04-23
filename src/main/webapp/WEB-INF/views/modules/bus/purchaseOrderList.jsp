@@ -59,7 +59,7 @@
 				<th>付款日期</th>
 				<th>状态</th>
 				<th>备注</th>
-				<th>更新者</th>
+				<%--<th>更新者</th>--%>
 				<th>更新时间</th>
 				<shiro:hasPermission name="bus:purchaseOrder:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
@@ -97,9 +97,9 @@
 				<td>
 					${purchaseOrder.remarks}
 				</td>
-				<td>
-					${purchaseOrder.updateBy.id}
-				</td>
+				<%--<td>--%>
+					<%--${purchaseOrder.updateBy.id}--%>
+				<%--</td>--%>
 				<td>
 					<fmt:formatDate value="${purchaseOrder.updateDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
 				</td>

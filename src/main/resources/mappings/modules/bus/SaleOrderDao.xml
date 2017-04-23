@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ykchen.platform.modules.bus.dao.SaleOrderDao">
+    
+	<sql id="saleOrderColumns">
+		a.id AS "id",
+		a.customer_id AS "customer.id",
+		a.total_amount AS "totalAmount",
+		a.total_quantity AS "totalQuantity",
+		a.status AS "status",
+		a.order_date AS "orderDate",
+		a.delivery_date AS "deliveryDate",
+		a.delivery_cycle AS "deliveryCycle",
+		a.has_after_sale AS "hasAfterSale",
+		a.after_sale_amount AS "afterSaleAmount",
+		a.after_sale_detail AS "afterSaleDetail",
+		a.remarks AS "remarks",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.del_flag AS "delFlag",
+		c.company_name AS "customer.companyName"
+	</sql>
+	
+	<sql id="saleOrderJoins">
+		LEFT JOIN bus_customer c ON c.id = a.customer_id
+	</sql>
+    
+	<select id="get" resultType="SaleOrder">
+		SELECT 
+			<include refid="saleOrderColumns"/>
+		FROM bus_sale_order a
+		<include refid="saleOrderJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="SaleOrder">
+		SELECT 
+			<include refid="saleOrderColumns"/>
+		FROM bus_sale_order a
+		<include refid="saleOrderJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="customer != null and customer != ''">
+				AND a.customer_id = #{customer.id}
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="orderDate != null and orderDate != ''">
+				AND a.order_date = #{orderDate}
+			</if>
+			<if test="deliveryDate != null and deliveryDate != ''">
+				AND a.delivery_date = #{deliveryDate}
+			</if>
+			<if test="deliveryCycle != null and deliveryCycle != ''">
+				AND a.delivery_cycle = #{deliveryCycle}
+			</if>
+			<if test="hasAfterSale != null and hasAfterSale != ''">
+				AND a.has_after_sale = #{hasAfterSale}
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="SaleOrder">
+		SELECT 
+			<include refid="saleOrderColumns"/>
+		FROM bus_sale_order a
+		<include refid="saleOrderJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO bus_sale_order(
+			customer_id,
+			total_amount,
+			total_quantity,
+			status,
+			order_date,
+			delivery_date,
+			delivery_cycle,
+			has_after_sale,
+			after_sale_amount,
+			after_sale_detail,
+			remarks,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			del_flag
+		) VALUES (
+			#{customer.id},
+			#{totalAmount},
+			#{totalQuantity},
+			#{status},
+			#{orderDate},
+			#{deliveryDate},
+			#{deliveryCycle},
+			#{hasAfterSale},
+			#{afterSaleAmount},
+			#{afterSaleDetail},
+			#{remarks},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bus_sale_order SET 	
+			customer_id = #{customer.id},
+			total_amount = #{totalAmount},
+			total_quantity = #{totalQuantity},
+			status = #{status},
+			order_date = #{orderDate},
+			delivery_date = #{deliveryDate},
+			delivery_cycle = #{deliveryCycle},
+			has_after_sale = #{hasAfterSale},
+			after_sale_amount = #{afterSaleAmount},
+			after_sale_detail = #{afterSaleDetail},
+			remarks = #{remarks},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE bus_sale_order SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

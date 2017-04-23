@@ -71,13 +71,13 @@
 				</form:select>
 			</div>
 		</div>
-		<%--<div class="control-group">
+		<div class="control-group">
 			<label class="control-label">库存数量：</label>
 			<div class="controls">
 				<form:input path="quantity" htmlEscape="false" maxlength="11" class="input-xlarge required"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
-		</div>--%>
+		</div>
 		<div class="control-group">
 			<label class="control-label">单价：</label>
 			<div class="controls">
