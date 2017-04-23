@@ -232,7 +232,7 @@
     <div class="control-group">
         <label class="control-label">售后：</label>
         <div class="controls">
-            <form:radiobuttons path="hasAfterSale" items="${fns:getDictList('yes_no')}" itemValue="value"
+            <form:radiobuttons path="hasAfterSale" items="${fns:getDictList('true_false')}" itemValue="value"
                                itemLabel="label"/>
             <span class="help-inline"><font color="red">*</font> </span>
         </div>

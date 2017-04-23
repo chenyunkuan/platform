@@ -46,8 +46,11 @@
 	</ul>
 	<form:form id="searchForm" modelAttribute="mdict" action="${ctx}/sys/mdict/" method="post" class="breadcrumb form-search">
 		<ul class="ul-form">
-			<li><label>所有父级编号：</label>
-				<form:input path="parentIds" htmlEscape="false" maxlength="2000" class="input-medium"/>
+			<li><label>父级：</label>
+				<sys:treeselect id="parent" name="parent.id" value="${mdict.parent.id}" labelName="parent.name"
+								labelValue="${mdict.parent.name}"
+								title="父级编号" url="/sys/mdict/treeData" extId="${mdict.id}" cssClass=""
+								allowClear="true"/>
 			</li>
 			<li><label>名称：</label>
 				<form:input path="name" htmlEscape="false" maxlength="100" class="input-medium"/>
@@ -60,13 +63,11 @@
 	<table id="treeTable" class="table table-striped table-bordered table-condensed">
 		<thead>
 			<tr>
-				<th>父级编号</th>
 				<th>名称</th>
 				<th>排序</th>
 				<th>描述</th>
-				<th>更新者</th>
-				<th>更新时间</th>
 				<th>备注信息</th>
+				<th>更新时间</th>
 				<shiro:hasPermission name="sys:mdict:edit"><th>操作</th></shiro:hasPermission>
 			</tr>
 		</thead>
@@ -75,11 +76,8 @@
 	<script type="text/template" id="treeTableTpl">
 		<tr id="{{row.id}}" pId="{{pid}}">
 			<td><a href="${ctx}/sys/mdict/form?id={{row.id}}">
-				{{row.parent.id}}
-			</a></td>
-			<td>
 				{{row.name}}
-			</td>
+			</a></td>
 			<td>
 				{{row.sort}}
 			</td>
@@ -87,13 +85,10 @@
 				{{row.description}}
 			</td>
 			<td>
-				{{row.updateBy.id}}
+				{{row.remarks}}
 			</td>
 			<td>
 				{{row.updateDate}}
-			</td>
-			<td>
-				{{row.remarks}}
 			</td>
 			<shiro:hasPermission name="sys:mdict:edit"><td>
    				<a href="${ctx}/sys/mdict/form?id={{row.id}}">修改</a>

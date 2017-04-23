@@ -99,7 +99,7 @@
 					${saleOrder.deliveryCycle}
 				</td>
 				<td>
-					${saleOrder.hasAfterSale}
+						${fns:getDictLabel(saleOrder.hasAfterSale,'true_false','')}
 				</td>
 				<td>
 					${saleOrder.afterSaleAmount}
