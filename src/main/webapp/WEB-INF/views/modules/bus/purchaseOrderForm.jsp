@@ -122,7 +122,7 @@
 								<input id="purchaseOrderDetailList{{idx}}_quantity" name="purchaseOrderDetailList[{{idx}}].quantity" type="text" value="{{row.quantity}}" maxlength="11" class="input-small required digits"/>
 							</td>
 							<td>
-								<input readonly id="purchaseOrderDetailList{{idx}}_amount" name="purchaseOrderDetailList[{{idx}}].amount" type="text" value="{{row.amount}}" class="input-small"/>
+								<input id="purchaseOrderDetailList{{idx}}_amount" name="purchaseOrderDetailList[{{idx}}].amount" type="text" value="{{row.amount}}" class="input-small"/>
 							</td>
 							<shiro:hasPermission name="bus:purchaseOrder:edit"><td class="text-center" width="10">
 								{{#delBtn}}<span class="close" onclick="delRow(this, '#purchaseOrderDetailList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
